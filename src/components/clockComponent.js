@@ -2,46 +2,48 @@ import {React, useEffect} from "react";
 
 export const clockComponent = () => {
 
+  const defaultState = {
+    fecha: new Date(),
+    edad: 0,
+    nombre: "Exequiel",
+    apellidos: 'Cartisano'
+  };
+
+  const [user, setUser] = useState(defaultState);
+
   useEffect(() => {
-    const fecha = {
-      fecha: new Date(),
-      edad: 0,
-      nombre: "Exequiel",
-      apellidos: 'Cartisano'
-    };
     
-    const timerID = setInterval(
-      () => tick(),1000
+    
+    const intervalAge = (
+      () => updateUser(),1000
     );
 
     return () => {
-      clearInterval(timerID)
-    }
-  }, [])
+      clearInterval(intervalAge);
+    };
+  });
 
-  const [fecha, setFecha] = useState(fecha)
-  
-  const tick = (fecha) =>{
-    let edad = fecha.edad +1;
-    setFecha({
-      nombre: fecha.nombre,
-      apellido: fecha.apellido,
-      fecha: new Date(),
-      edad: edad
-
-    })
+   
+  const updateUser = () =>{
+    return 
+      setUser({
+        fecha: user.fecha,
+        edad: user.edad +1,
+        nombre: user.nombre,
+        apellido: user.apellido,
+      });
   };
 
   return (
     <div>
       <h2>
-        Hora Actual: {person.fecha.toLocaleTimestring()}
+        Hora Actual: {user.fecha.toLocaleTimestring()}
       </h2>
       <h3>
-        {person.nombre} {person.apellidos}
+        {user.nombre} {user.apellidos}
       </h3>
       <h1>
-        {person.edad}
+        Edad: {user.edad}
       </h1>
     </div>
   );
